@@ -5,6 +5,11 @@
   
   
   <mapper namespace="QnaMapper">
+  	<select id="totalCount" resultType="int" parameterType="listData">
+  		
+  	</select>
+  
+  
 	<insert id="insert" parameterType="QnaDTO">
 		insert into qna values(qna_seq.nextval,#{title},#{contents},#{writer},0,sysdate,qna_seq.currval,0,0)
 	</insert>

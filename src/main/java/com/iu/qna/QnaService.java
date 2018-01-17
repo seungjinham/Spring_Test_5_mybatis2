@@ -2,13 +2,12 @@ package com.iu.qna;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iu.board.BoardDTO;
 import com.iu.board.BoardService;
+import com.iu.util.ListData;
 
 @Service
 public class QnaService implements BoardService {
@@ -17,8 +16,8 @@ public class QnaService implements BoardService {
 	private QnaDAO qnaDAO;
 	
 	@Override
-	public List<BoardDTO> selectList() throws Exception {
-		return qnaDAO.selectList();
+	public List<BoardDTO> selectList(ListData listData) throws Exception {
+		return qnaDAO.selectList(listData);
 	}
 
 	@Override
