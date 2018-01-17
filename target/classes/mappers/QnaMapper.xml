@@ -6,9 +6,17 @@
   
   <mapper namespace="QnaMapper">
   	<select id="totalCount" resultType="int" parameterType="listData">
-  		
-  	</select>
-  
+  		select nvl(count(num),0) from qna
+  		<if test="kind=='title'">
+  			where title LIKE '%'|| #{search}||'%'
+  		</if>
+  		<if test="kind=='writer'">
+  			where writer LIKE '%'|| #{search}||'%'
+  		</if>
+  		<if test="kind=='contents'">
+  			where contents LIKE '%'|| #{search}||'%'
+  		</if>
+  	</select>  
   
 	<insert id="insert" parameterType="QnaDTO">
 		insert into qna values(qna_seq.nextval,#{title},#{contents},#{writer},0,sysdate,qna_seq.currval,0,0)
@@ -26,11 +34,21 @@
   		select * from qna where num=#{num}
   	</select>
  
-  	<select id="selectList" parameterType="Map" resultType="QnaDTO">
+  	<select id="selectList" parameterType="listData" resultType="QnaDTO">
   		select * from
   		(select rownum R, Q.* from 
-  		(select * from qna order by num desc)Q )
-  		where R between 1 and 20 order by ref desc, step asc
+  		(select * from qna 
+  		<if test="kind=='title'">
+  			where title LIKE '%'|| #{search}||'%'
+  		</if>
+  		<if test="kind=='writer'">
+  			where writer LIKE '%'|| #{search}||'%'
+  		</if>
+  		<if test="kind=='contents'">
+  			where contents LIKE '%'|| #{search}||'%'
+  		</if>  		
+  		order by num desc)Q )
+  		where R between #{startRow} and #{lastRow} order by ref desc, step asc
   	</select>
   	
   	<insert id="replyInsert" parameterType="Map" >

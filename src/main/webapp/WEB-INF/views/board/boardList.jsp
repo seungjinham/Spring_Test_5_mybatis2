@@ -8,11 +8,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function() {
+		var message='${message}';
+		if(message != ''){
+			alert(message);
+		}
+				
 		$(".page").click(function() {
 			var cur=$(this).attr("title");
 			document.frm.curPage.value=cur;
 			document.frm.search.value='${page.search}';
-			document.frm.search.value='${page.kind}';
+			document.frm.kind.value='${page.kind}';
 			document.frm.submit();
 		});
 	});
@@ -75,6 +80,10 @@
 		<c:if test="${page.curBlock<page.totalBlock}">
 			<span class="page" title="${page.lastNum+1}"> [다음] </span>
 		</c:if>
+	</div>
+	
+	<div>
+		<a href="./${board}Write">Write</a>
 	</div>
 	
 </body>
