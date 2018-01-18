@@ -2,6 +2,7 @@ package com.iu.s5;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 /**
@@ -22,8 +24,10 @@ public class HomeController {
 	
 	@RequestMapping(value="./fileTest",method=RequestMethod.POST)
 	public void fileTest(MultipartHttpServletRequest request) throws Exception{
-		System.out.println(request.getParameter("id"));
-		System.out.println(request.getParameter("f1"));
+		MultipartFile f = request.getFile("f1");
+		System.out.println(f.getName());
+		System.out.println(f.getOriginalFilename());
+		System.out.println(f.getSize());
 	}
 	
 	/**
